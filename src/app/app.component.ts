@@ -25,7 +25,7 @@ export class AppComponent {
   }
 
   todoModelChange($event) {
-    console.log($event);
+    // console.log($event);
     this.todo = $event;
   }
 }
