@@ -82,7 +82,13 @@ export class AppComponent implements OnInit {
 
   updateTodo(todo) {
     this.dataSvc.updateTodo(todo)
-      .subscribe();
+      .subscribe(data => {
+        // Bug: 使用 footer 元件下的 Active 來顯示尚未完成的待辦事項，此時勾選其中一個待辦事項，該待辦事項未從列表中消失。
+        // 解決方式: 修改 todos 的參考來觸發 Angular 變更偵測
+        this.todos = [...this.todos];
+        // 也可使用其他方式來觸發變更偵測，關鍵字: ChangeDetectorRef
+        // https://angular.io/api/core/ChangeDetectorRef
+      });
   }
 
   enterEditMode(todo) {
