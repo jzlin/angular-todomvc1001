@@ -10,10 +10,12 @@ export class AppComponent {
   colspan = 3;
 
   todos = [];
+  todo = '';
 
-  addTodo($event) {
-    if ($event.target.value) {
-      this.todos = this.todos.concat($event.target.value);
+  addTodo() {
+    if (this.todo) {
+      this.todos = this.todos.concat(this.todo);
+      this.todo = '';
     }
     // this.todos = [...this.todos, $event.target.value];
   }
