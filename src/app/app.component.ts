@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   inputHint = 'What needs to be done?';
   colspan = 3;
 
@@ -15,8 +15,17 @@ export class AppComponent {
   filterType = 'All';
   isToggleAll = false;
 
+  private apiBase = 'http://localhost:3000/todos';
+
   constructor(private http: HttpClient) {
 
+  }
+
+  ngOnInit() {
+    this.http.get<any[]>(this.apiBase)
+      .subscribe(data => {
+        this.todos = data;
+      });
   }
 
   addTodo() {
@@ -25,8 +34,11 @@ export class AppComponent {
         text: this.todo,
         done: false
       };
-      this.todos = this.todos.concat(newTodo);
-      this.todo = '';
+      this.http.post(this.apiBase, newTodo)
+        .subscribe(data => {
+          this.todos = this.todos.concat(data);
+          this.todo = '';
+        });
     }
     // this.todos = [...this.todos, $event.target.value];
   }
@@ -37,7 +49,10 @@ export class AppComponent {
   }
 
   clearCompleted() {
-    this.todos = this.todos.filter(item => !item.done);
+    this.todos.filter(item => item.done)
+      .forEach(item => {
+        this.removeTodo(item);
+      });
 
     // this.todos = this.todos.filter(function (item) {
     //   return !item.done;
@@ -56,10 +71,19 @@ export class AppComponent {
   toggleAll() {
     this.todos.forEach(item => {
       item.done = this.isToggleAll;
+      this.updateTodo(item);
     });
   }
 
   removeTodo(todo) {
-    this.todos = this.todos.filter(item => item !== todo);
+    this.http.delete(`${this.apiBase}/${todo.id}`)
+      .subscribe(data => {
+        this.todos = this.todos.filter(item => item !== todo);
+      });
+  }
+
+  updateTodo(todo) {
+    this.http.put(`${this.apiBase}/${todo.id}`, todo)
+      .subscribe();
   }
 }
