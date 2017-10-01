@@ -13,7 +13,7 @@
       <li *ngFor="let item of todos" [class.completed]="item.done">
         <div class="view">
           <input class="toggle" type="checkbox" [(ngModel)]="item.done">
-          <label [ngStyle]="{color: item.done ? 'green' : 'red'}">{{item.text}}</label>
+          <label [ngStyle]="{color: item.done ? 'green' : 'red'}">{{item.text | uppercase}}</label>
           <button class="destroy"></button>
         </div>
         <input class="edit" value="Create a TodoMVC template">
