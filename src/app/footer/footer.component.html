@@ -4,13 +4,13 @@
   <!-- Remove this if you don't implement routing -->
   <ul class="filters">
     <li>
-      <a class="selected" href="#/">All</a>
+      <a [class.selected]="filterType === 'All'" (click)="changeFilterType('All')">All</a>
     </li>
     <li>
-      <a href="#/active">Active</a>
+      <a [class.selected]="filterType === 'Active'" (click)="changeFilterType('Active')">Active</a>
     </li>
     <li>
-      <a href="#/completed">Completed</a>
+      <a [class.selected]="filterType === 'Completed'" (click)="changeFilterType('Completed')">Completed</a>
     </li>
   </ul>
   <!-- Hidden if no completed items are left ↓ -->

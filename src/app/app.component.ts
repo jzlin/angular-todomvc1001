@@ -11,6 +11,7 @@ export class AppComponent {
 
   todos = [];
   todo = '';
+  filterType = 'All';
 
   addTodo() {
     if (this.todo) {
@@ -39,5 +40,10 @@ export class AppComponent {
     // this.todos = this.todos.filter((item) => {
     //   return !item.done;
     // });
+  }
+
+  updateFilterType(value) {
+    console.log(value);
+    this.filterType = value;
   }
 }
