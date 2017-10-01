@@ -31,5 +31,13 @@ export class AppComponent {
 
   clearCompleted() {
     this.todos = this.todos.filter(item => !item.done);
+
+    // this.todos = this.todos.filter(function (item) {
+    //   return !item.done;
+    // });
+
+    // this.todos = this.todos.filter((item) => {
+    //   return !item.done;
+    // });
   }
 }
