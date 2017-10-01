@@ -14,7 +14,11 @@ export class AppComponent {
 
   addTodo() {
     if (this.todo) {
-      this.todos = this.todos.concat(this.todo);
+      let newTodo = {
+        text: this.todo,
+        done: false
+      };
+      this.todos = this.todos.concat(newTodo);
       this.todo = '';
     }
     // this.todos = [...this.todos, $event.target.value];
