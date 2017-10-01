@@ -12,8 +12,9 @@ export class AppComponent {
   todos = [];
 
   addTodo($event) {
-    console.log($event);
-    this.todos = this.todos.concat($event.target.value);
+    if ($event.target.value) {
+      this.todos = this.todos.concat($event.target.value);
+    }
     // this.todos = [...this.todos, $event.target.value];
   }
 }
