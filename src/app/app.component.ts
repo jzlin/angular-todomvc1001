@@ -19,4 +19,9 @@ export class AppComponent {
     }
     // this.todos = [...this.todos, $event.target.value];
   }
+
+  todoModelChange($event) {
+    console.log($event);
+    this.todo = $event;
+  }
 }
